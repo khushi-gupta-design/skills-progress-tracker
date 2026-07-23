@@ -1,0 +1,81 @@
+import json
+
+class Skill:
+    def __init__(self, name):
+        self.name = name
+        self.topics = {}
+
+    def add_topic(self, topic_name, percentage):
+        self.topics[topic_name] = percentage
+
+    def get_average_progress(self):
+        if len(self.topics) == 0:
+            return 0
+        return sum(self.topics.values()) / len(self.topics.values())
+
+    def get_progress_bar(self):
+        avg = self.get_average_progress()
+        filled = int(avg / 10)
+        empty = 10 - filled
+        bar = "$" * filled + "#" * empty
+        return bar
+
+
+class SkillTracker:
+    def __init__(self):
+        self.skills = {}
+
+    def add_skill(self, skill_name):
+        self.skills[skill_name] = Skill(skill_name)
+
+    def show_all(self):
+        for skill_name, skill_obj in self.skills.items():
+            bar = skill_obj.get_progress_bar()
+            avg = skill_obj.get_average_progress()
+            print(f"{skill_name}: [{bar}] {avg}%")
+
+    def save_to_file(self, filename="progress.json"):
+        data = {}
+        for skill_name, skill_obj in self.skills.items():
+            data[skill_name] = skill_obj.topics
+
+        with open(filename, "w") as f:
+            json.dump(data, f)
+
+    def load_from_file(self, filename="progress.json"):
+        with open(filename, "r") as f:
+            data = json.load(f)
+
+        for skill_name, topics in data.items():
+            self.add_skill(skill_name)
+            for topic_name, percentage in topics.items():
+                self.skills[skill_name].add_topic(topic_name, percentage)
+
+    def generate_linkedin_summary(self):
+        summary = "My Skill Progress Update\n\n"
+        for skill_name, skill_obj in self.skills.items():
+           avg = skill_obj.get_average_progress()
+           summary = summary + f"{skill_name}: {avg}%\n"
+        summary = summary + "\n#DataAnalyst #LearningInPublic"
+        return summary
+
+tracker = SkillTracker()
+
+tracker.add_skill("Python")
+tracker.skills["Python"].add_topic("Basics", 100)
+tracker.skills["Python"].add_topic("Pandas", 40)
+
+tracker.add_skill("SQL")
+tracker.skills["SQL"].add_topic("Joins", 80)
+tracker.skills["SQL"].add_topic("Subqueries", 70)
+
+tracker.add_skill("Power BI")
+tracker.skills["Power BI"].add_topic("Dashboards", 30)
+
+tracker.show_all()
+tracker.save_to_file()
+print("\n--- Loaded from file ---")
+new_tracker = SkillTracker()
+new_tracker.load_from_file()
+new_tracker.show_all()
+print(tracker.generate_linkedin_summary())
