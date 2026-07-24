@@ -80,7 +80,7 @@ tracker.skills["SQL"].add_topic("Joins", joins_value)
 subqueries_value = st.slider("SQL - Subqueries", 0, 100, 70)
 tracker.skills["SQL"].add_topic("Subqueries", subqueries_value)
 
-tracker.add_skil("Power BI")
+tracker.add_skill("Power BI")
 dboards = st.slider("Power BI - Dashboards", 0, 100, 30)
 tracker.skills["Power BI"].add_topic("Dashboards", dboards)
 
