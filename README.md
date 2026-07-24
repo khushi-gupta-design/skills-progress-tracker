@@ -42,5 +42,9 @@ What's Next
 Converting this into a web app (likely with Streamlit) for a more visual, shareable version
 Adding an update_topic method to edit existing progress
 
+on 25-07-2026
+web version is ready ...
+
+
 
 
