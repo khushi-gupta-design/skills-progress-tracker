@@ -68,9 +68,11 @@ st.write("Tracking my journey in Python, SQL, and Power BI")
 tracker = SkillTracker()
 
 tracker.add_skill("Python")
-tracker.skills["Python"].add_topic("Basics", 100)
-tracker.skills["Python"].add_topic("Pandas", 40)
+basics_value = st.slider("Python - Basics", 0, 100, 100)
+tracker.skills["Python"].add_topic("Basics", basics_value)
 
+pandas_value = st.slider("Python - Pandas", 0, 100, 40)
+tracker.skills["Python"].add_topic("Pandas", pandas_value)
 tracker.add_skill("SQL")
 tracker.skills["SQL"].add_topic("Joins", 80)
 tracker.skills["SQL"].add_topic("Subqueries", 70)
