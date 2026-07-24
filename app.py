@@ -68,17 +68,19 @@ st.write("Tracking my journey in Python, SQL, and Power BI")
 tracker = SkillTracker()
 
 tracker.add_skill("Python")
+
 basics_value = st.slider("Python - Basics", 0, 100, 100)
 tracker.skills["Python"].add_topic("Basics", basics_value)
-
 pandas_value = st.slider("Python - Pandas", 0, 100, 40)
 tracker.skills["Python"].add_topic("Pandas", pandas_value)
-tracker.add_skill("SQL")
-tracker.skills["SQL"].add_topic("Joins", 80)
-tracker.skills["SQL"].add_topic("Subqueries", 70)
 
-tracker.add_skill("Power BI")
-tracker.skills["Power BI"].add_topic("Dashboards", 30)
+joins_value = st.slider("SQL - Joins", 0, 100, 80)
+tracker.skills["SQL"].add_topic("Joins", joins_value)
+subqueries_value = st.slider("SQL - Subqueries", 0, 100, 70)
+tracker.skills["SQL"].add_topic("Subqueries", subqueries_value)
+
+dboards = st.slider("Power BI - Dashboards", 0, 100, 30)
+tracker.skills["Power BI"].add_topic("Dashboards", dboards)
 
 for skill_name, skill_obj in tracker.skills.items():
     avg = skill_obj.get_average_progress()
