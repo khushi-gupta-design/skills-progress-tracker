@@ -64,8 +64,9 @@ class SkillTracker:
 
 st.title("My Skills Progress Tracker")
 st.write("Tracking my journey in Python, SQL, and Power BI")
-password = st.text_input("ENTER PASSWORD" , type='paasword')
-edit_mode = (password =="200630")
+
+password = st.text_input("ENTER PASSWORD", type="password")
+edit_mode = (password == "200630")
 
 tracker = SkillTracker()
 
