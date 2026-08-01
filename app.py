@@ -1,6 +1,6 @@
 import streamlit as st
-
 import json
+
 
 class Skill:
     def __init__(self, name):
@@ -36,39 +36,15 @@ class SkillTracker:
             avg = skill_obj.get_average_progress()
             print(f"{skill_name}: [{bar}] {avg}%")
 
-    def save_to_file(self, filename="progress.json"):
-        data = {}
-        for skill_name, skill_obj in self.skills.items():
-            data[skill_name] = skill_obj.topics
-
-        with open(filename, "w") as f:
-            json.dump(data, f)
-
-    def load_from_file(self, filename="progress.json"):
-        with open(filename, "r") as f:
-            data = json.load(f)
-
-        for skill_name, topics in data.items():
-            self.add_skill(skill_name)
-            for topic_name, percentage in topics.items():
-                self.skills[skill_name].add_topic(topic_name, percentage)
-
-    def generate_linkedin_summary(self):
-        summary = "My Skill Progress Update\n\n"
-        for skill_name, skill_obj in self.skills.items():
-           avg = skill_obj.get_average_progress()
-           summary = summary + f"{skill_name}: {avg}%\n"
-        summary = summary + "\n#DataAnalyst #LearningInPublic"
-        return summary
-
 
 st.title("My Skills Progress Tracker")
-st.write("Tracking my journey in Python, SQL, and Power BI")
+st.write("Tracking my journey in Python, SQL, Power BI, and AI Automation")
 
-password = st.text_input("ENTER PASSWORD", type="password")
+password = st.text_input("Enter password to edit", type="password")
 edit_mode = (password == "200630")
 
 tracker = SkillTracker()
+
 
 tracker.add_skill("Python")
 
@@ -78,44 +54,58 @@ if edit_mode:
 else:
     basics_done = True
     pandas_done = False
-    basics_value = 100 if basics_done else 0
+
+basics_value = 100 if basics_done else 0
 pandas_value = 100 if pandas_done else 0
+
 tracker.skills["Python"].add_topic("Basics", basics_value)
 tracker.skills["Python"].add_topic("Pandas", pandas_value)
-  
+
+
+tracker.add_skill("SQL")
 
 if edit_mode:
-    SQL_BASICS = st.checkbox("SQL - Basics", value=True)
-    SQL_ADVANCED = st.checkbox("SQL - Advanced", value=True)
+    joins_done = st.checkbox("SQL - Joins", value=True)
+    subqueries_done = st.checkbox("SQL - Subqueries", value=True)
 else:
-    SQL_BASICS = True
-    SQL_ADVANCED = False
-Basics_value = 100 if  SQL_BASICS else 0
-Advanced_value = 100 if SQL_ADVANCED else 0
-tracker.skills["SQL"].add_topic("Basics", Basics_value)
-tracker.skills["SQL"].add_topic("Advanced", Advanced_value)
-   
+    joins_done = True
+    subqueries_done = True
+
+joins_value = 100 if joins_done else 0
+subqueries_value = 100 if subqueries_done else 0
+
+tracker.skills["SQL"].add_topic("Joins", joins_value)
+tracker.skills["SQL"].add_topic("Subqueries", subqueries_value)
+
+
+tracker.add_skill("Power BI")
 
 if edit_mode:
-   POWER_BI = st.checkbox("POWERBI", value=True)
+    dashboards_done = st.checkbox("Power BI - Dashboards", value=False)
 else:
-    POWERBI = True
-POWERBI_value = 100 if POWER_BI else 0
+    dashboards_done = False
+
+dashboards_value = 100 if dashboards_done else 0
+
 tracker.skills["Power BI"].add_topic("Dashboards", dashboards_value)
 
 
-if edit_mode:
-    AI_BASICS = st.checkbox("AIAUTOMATION - Basics", value=True)
-    AI_ADVANCED = st.checkbox("AIAUTOMATION - Advanced", value=False)
-else:
-    AI_BASICS = False
-    AI_ADVANCED = False
-Basics_value = 100 if AI_BASICS else 0
-Advanced_value = 100 if AI_ADVANCED else 0
-tracker.skills["AIAUTOMATION"].add_topic("Basics", value=False)
-tracker.skills["AIAUTOMATION"].add_topic("Advanced",value=False)
-    
+tracker.add_skill("AI Automation")
 
+if edit_mode:
+    ai_basics_done = st.checkbox("AI Automation - Basics", value=False)
+    ai_advanced_done = st.checkbox("AI Automation - Advanced", value=False)
+else:
+    ai_basics_done = False
+    ai_advanced_done = False
+
+ai_basics_value = 100 if ai_basics_done else 0
+ai_advanced_value = 100 if ai_advanced_done else 0
+
+tracker.skills["AI Automation"].add_topic("Basics", ai_basics_value)
+tracker.skills["AI Automation"].add_topic("Advanced", ai_advanced_value)
+
+# ---------- DISPLAY ----------
 for skill_name, skill_obj in tracker.skills.items():
     avg = skill_obj.get_average_progress()
     st.subheader(skill_name)
