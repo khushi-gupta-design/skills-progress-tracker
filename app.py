@@ -72,21 +72,18 @@ tracker = SkillTracker()
 
 tracker.add_skill("Python")
 
-basics_value = st.slider("Python - Basics", 0, 100, 100)
+if edit_mode:
+    basics_done = st.checkbox("Python - Basics", value=True)
+    pandas_done = st.checkbox("Python - Pandas", value=False)
+else:
+    basics_done = True
+    pandas_done = False
+
+basics_value = 100 if basics_done else 0
+pandas_value = 100 if pandas_done else 0
+
 tracker.skills["Python"].add_topic("Basics", basics_value)
-pandas_value = st.slider("Python - Pandas", 0, 100, 40)
 tracker.skills["Python"].add_topic("Pandas", pandas_value)
-
-tracker.add_skill("SQL")
-joins_value = st.slider("SQL - Joins", 0, 100, 80)
-tracker.skills["SQL"].add_topic("Joins", joins_value)
-subqueries_value = st.slider("SQL - Subqueries", 0, 100, 70)
-tracker.skills["SQL"].add_topic("Subqueries", subqueries_value)
-
-tracker.add_skill("Power BI")
-dboards = st.slider("Power BI - Dashboards", 0, 100, 30)
-tracker.skills["Power BI"].add_topic("Dashboards", dboards)
-
 for skill_name, skill_obj in tracker.skills.items():
     avg = skill_obj.get_average_progress()
     st.subheader(skill_name)
