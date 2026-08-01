@@ -78,12 +78,44 @@ if edit_mode:
 else:
     basics_done = True
     pandas_done = False
-
-basics_value = 100 if basics_done else 0
+    basics_value = 100 if basics_done else 0
 pandas_value = 100 if pandas_done else 0
-
 tracker.skills["Python"].add_topic("Basics", basics_value)
 tracker.skills["Python"].add_topic("Pandas", pandas_value)
+  
+
+if edit_mode:
+    SQL_BASICS = st.checkbox("SQL - Basics", value=True)
+    SQL_ADVANCED = st.checkbox("SQL - Advanced", value=True)
+else:
+    SQL_BASICS = True
+    SQL_ADVANCED = False
+Basics_value = 100 if  SQL_Basics else 0
+Advanced_value = 100 if SQL_Advanced  else 0
+tracker.skills["SQL"].add_topic("Basics", Basics_value)
+tracker.skills["SQL"].add_topic("Advanced", Advanced_value)
+   
+
+if edit_mode:
+   POWER_BI = st.checkbox("POWERBI", value=True)
+else:
+    POWERBI = True
+POWERBI_value = 100 if POWER_BI else 0
+tracker.skills["Power BI"].add_topic("Dashboards", dashboards_value)
+
+
+if edit_mode:
+    AI_BASICS = st.checkbox("AIAUTOMATION - Basics", value=True)
+    AI_ADVANCED = st.checkbox("AIAUTOMATION - Advanced", value=False)
+else:
+    AI_BASICS = False
+    AI_ADVANCED = False
+Basics_value = 100 if AI_BASICS else 0
+Advanced_value = 100 if AI_ADVANCED else 0
+tracker.skills["AIAUTOMATION"].add_topic("Basics", value=False)
+tracker.skills["AIAUTOMATION"].add_topic("Advanced",value=False)
+    
+
 for skill_name, skill_obj in tracker.skills.items():
     avg = skill_obj.get_average_progress()
     st.subheader(skill_name)
