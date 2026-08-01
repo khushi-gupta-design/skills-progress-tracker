@@ -90,8 +90,8 @@ if edit_mode:
 else:
     SQL_BASICS = True
     SQL_ADVANCED = False
-Basics_value = 100 if  SQL_Basics else 0
-Advanced_value = 100 if SQL_Advanced  else 0
+Basics_value = 100 if  SQL_BASICS else 0
+Advanced_value = 100 if SQL_ADVANCED else 0
 tracker.skills["SQL"].add_topic("Basics", Basics_value)
 tracker.skills["SQL"].add_topic("Advanced", Advanced_value)
    
